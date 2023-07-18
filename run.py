@@ -9,6 +9,7 @@ import os
 load_dotenv()
 
 def main():
+
     fireFoxOptions = webdriver.FirefoxOptions()
     fireFoxOptions.headless = False
     driver = webdriver.Firefox(options=fireFoxOptions)
@@ -20,8 +21,8 @@ def main():
     wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div[4]/div/div/div[2]/div/input")))
 
     # Sign in
-    driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div/div/div[2]/div/input').send_keys(os.environ.get("CLOUDPOS_EMAIL"))
-    driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div/div/div[3]/div/input').send_keys(os.environ.get("CLOUDPOS_PASSWORD"))
+    driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div/div/div[2]/div/input').send_keys(os.environ.get("CLOUDMT_EMAIL"))
+    driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div/div/div[3]/div/input').send_keys(os.environ.get("CLOUDMT_PASSWORD"))
     driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div/div/div[4]/button').click()
 
     # Go to first product
