@@ -5,9 +5,9 @@ import numpy as np
 def findColourForImage(image_path):
     # Define the list of predefined colors
     predefined_colors = [
-        ('beige', (245, 245, 220)),
-        ('black', (0, 0, 0)),
-        ('blue', [
+        ('Beige', (245, 245, 220)),
+        ('Black', (0, 0, 0)),
+        ('Blue', [
             (0, 0, 255),        # Dark blue
             (30, 144, 255),     # Dodger blue
             (0, 191, 255),      # Deep sky blue
@@ -15,18 +15,18 @@ def findColourForImage(image_path):
             (176, 224, 230),    # Powder blue
             (240, 248, 255)     # Alice blue
         ]),
-        ('brown', (165, 42, 42)),
-        # ('clear', (255, 255, 255, 0)),
-        ('gold', (255, 215, 0)),
-        ('green', (0, 128, 0)),
-        ('grey', (128, 128, 128)),
-        ('orange', (255, 165, 0)),
-        ('pink', (255, 192, 203)),
-        ('purple', (128, 0, 128)),
-        ('red', (255, 0, 0)),
-        ('silver', (192, 192, 192)),
-        ('white', (255, 255, 255)),
-        ('yellow', (255, 255, 0))
+        ('Brown', (165, 42, 42)),
+        # ('Clear', (255, 255, 255, 0)),
+        ('Gold', (255, 215, 0)),
+        ('Green', (0, 128, 0)),
+        ('Grey', (128, 128, 128)),
+        ('Orange', (255, 165, 0)),
+        ('Pink', (255, 192, 203)),
+        ('Purple', (128, 0, 128)),
+        ('Red', (255, 0, 0)),
+        ('Silver', (192, 192, 192)),
+        ('White', (255, 255, 255)),
+        ('Yellow', (255, 255, 0))
     ]
 
     # Open the image file
@@ -72,7 +72,7 @@ def findColourForImage(image_path):
 
         for predefined_color, predefined_rgb in predefined_colors:
             # If the predefined color is blue, check for multiple shades
-            if predefined_color == 'blue':
+            if predefined_color == 'Blue':
                 min_blue_distance = float('inf')
                 for shade_rgb in predefined_rgb:
                     distance = np.linalg.norm(np.array(rgb) - np.array(shade_rgb))
