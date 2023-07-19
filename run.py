@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium import webdriver
 from dotenv import load_dotenv
 from findColourForImage import findColourForImage
+from selenium.webdriver.support.ui import Select
 import requests
 import time
 import os
@@ -12,6 +13,15 @@ import os
 load_dotenv()
 
 def main():
+    # Check environment variables exist
+    CLOUDMT_EMAIL = os.environ.get("CLOUDMT_EMAIL")
+    CLOUDMT_PASSWORD = os.environ.get("CLOUDMT_PASSWORD")
+
+    if CLOUDMT_EMAIL is None:
+        raise ValueError("Environment variable CLOUDMT_EMAIL not found")
+    if CLOUDMT_PASSWORD is None:
+        raise ValueError("Environment variable CLOUDMT_PASSWORD not found")
+
 
     fireFoxOptions = webdriver.FirefoxOptions()
     # fireFoxOptions.add_argument('headless')
@@ -24,8 +34,8 @@ def main():
     # wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div[4]/div/div/div[2]/div/input")))
 
     # Sign in
-    driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div/div/div[2]/div/input').send_keys(os.environ.get("CLOUDMT_EMAIL"))
-    driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div/div/div[3]/div/input').send_keys(os.environ.get("CLOUDMT_PASSWORD"))
+    driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div/div/div[2]/div/input').send_keys(CLOUDMT_EMAIL)
+    driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div/div/div[3]/div/input').send_keys(CLOUDMT_PASSWORD)
     driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div/div/div[4]/button').click()
 
     # Delete firefox bottom fixed banner
@@ -68,6 +78,9 @@ def main():
     # Set primary colour
     colour = findColourForImage("product_images/kong-puppy-977079_1800x1800.png")
     print(colour)
+    driver.find_element(By.XPATH, '/html/body/div/div[4]/div[2]/div[1]/div[1]/div[13]/div/div[10]/div/div/div/div/div/div[2]/ul[2]/li[1]/div[7]/div[3]/div[2]').click()
+    driver.find_element(By.XPATH, f'/html/body/div/div[4]/div[2]/div[1]/div[1]/div[13]/div/div[10]/div/div/div/div/div/div[2]/ul[2]/li[1]/div[7]/div[3]/div[2]/div/div/div[@data-value="{colour}"]').click()
+    driver.find_element(By.XPATH, '/html/body/div/div[4]/div[2]/div[1]/div[1]/div[13]/div/div[10]/div/div/div/div/div/div[3]/button').click()
 
 
 if __name__ == '__main__':
