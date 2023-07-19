@@ -26,6 +26,7 @@ def main():
     fireFoxOptions = webdriver.FirefoxOptions()
     # fireFoxOptions.add_argument('headless')
     driver = webdriver.Firefox(options=fireFoxOptions)
+    driver.maximize_window()
 
     # Requesting website
     print('Requesting website')
