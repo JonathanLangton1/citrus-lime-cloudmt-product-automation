@@ -39,7 +39,11 @@ def open_find_and_filter_options(driver: Firefox):
 
 def set_primary_colour(driver: Firefox, primary_colour, image_url: str):
 
-    if (math.isnan(primary_colour)):
+    colourIsNotSpecified = (
+        isinstance(primary_colour, (float, int)) and math.isnan(primary_colour)
+    ) or primary_colour == "DETECT"
+
+    if (colourIsNotSpecified):
         file_path = "product_images\\" + image_url.rsplit("/", 1)[-1]
         colour = find_colour_for_image(file_path)
     else:
@@ -48,7 +52,7 @@ def set_primary_colour(driver: Firefox, primary_colour, image_url: str):
     driver.find_element(By.XPATH, f'/html/body/div/div[4]/div[2]/div[1]/div[1]/div[13]/div/div[10]/div/div/div/div/div/div[2]/ul[2]/li[1]/div[7]/div[3]/div[2]/div/div/div[@data-value="{colour}"]').click()
     driver.find_element(By.XPATH, '/html/body/div/div[4]/div[2]/div[1]/div[1]/div[13]/div/div[10]/div/div/div/div/div/div[3]/button').click()
 
-    if (math.isnan(primary_colour) and os.path.isfile(file_path)):
+    if (colourIsNotSpecified and os.path.isfile(file_path)):
         os.remove(file_path)
 
 def block_sim_stock(driver: Firefox):
