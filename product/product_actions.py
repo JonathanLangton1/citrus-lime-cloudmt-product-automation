@@ -26,7 +26,7 @@ def set_product_image(driver: Firefox, image_url: str):
     driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[1]/div[1]/div[8]/div[2]/div/div[1]/div[2]/input').send_keys(file_path)
 
 def set_google_category(driver: Firefox, wait: WebDriverWait, category: str):
-    time.sleep(1)
+    time.sleep(2)
     wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div/div[4]/div[2]/div[1]/div[1]/div[11]/div[2]/div/div/div")))
     driver.find_element(By.XPATH, '/html/body/div/div[4]/div[2]/div[1]/div[1]/div[11]/div[2]/div/div/div').click()
     wait.until(EC.element_to_be_clickable((By.XPATH, f'/html/body/div/div[4]/div[2]/div[1]/div[1]/div[11]/div[2]/div/div/div/div/div[@data-value="{category}"]')))
