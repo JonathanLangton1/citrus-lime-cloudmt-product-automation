@@ -2,7 +2,7 @@ from collections import Counter
 from PIL import Image
 import numpy as np
 
-def findColourForImage(image_path):
+def find_colour_for_image(image_path):
     # Define the list of predefined colors
     predefined_colors = [
         ('Beige', (245, 245, 220)),
