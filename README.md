@@ -27,8 +27,8 @@ Install [Pipenv](https://pypi.org/project/pipenv/) and run the below commands
 1. `pipenv shell`
 2. `pipenv install`
 
-Copy the example CSV file and populate it with your data (you can export products from Cloud POS [here](https://pos.citruslime.com/backofficeux/wizards.aspx#:~:text=Modify%20Item%20Detail%20Wizard)) - [guide](https://citrus-lime.helpjuice.com/41975-product-inventory-management/296668-using-wizards-to-make-bulk-changes-to-items)
+Copy the example Excel file and populate it with your data (you can export products from Cloud POS [here](https://pos.citruslime.com/backofficeux/wizards.aspx#:~:text=Modify%20Item%20Detail%20Wizard)) - [guide](https://citrus-lime.helpjuice.com/41975-product-inventory-management/296668-using-wizards-to-make-bulk-changes-to-items)
 
-Rename the CSV file to `products.csv` and place in the project directory
+Rename the Excel file to `products.xlsx` and place in the project directory
 
 Run the script `python ./main.py`
