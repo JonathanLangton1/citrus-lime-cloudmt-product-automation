@@ -15,7 +15,7 @@ def main():
     driver, wait = initialize_driver()
 
     # Requesting website
-    driver.get("https://cloudmt.citruslime.com/#/products/11151")
+    driver.get("https://cloudmt.citruslime.com/#/products/1")
 
     # Pre-requisites
     login(driver, CLOUDMT_EMAIL, CLOUDMT_PASSWORD)
