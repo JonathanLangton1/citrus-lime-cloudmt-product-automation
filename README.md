@@ -8,7 +8,7 @@ Load CSV file, and for each product, do the below:
 
 1. Enter description
 2. Insert product image
-3. Set Google Category
+3. Set Google Category ([see options here](https://www.google.com/basepages/producttype/taxonomy-with-ids.en-GB.txt))
 
 	**Find & filter options**
 
