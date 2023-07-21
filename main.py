@@ -3,7 +3,8 @@ from utils.selenium_utils import login, select_product, delete_firefox_bottom_ba
 from selenium.webdriver.common.by import By
 from config.config import get_credentials
 from dotenv import load_dotenv
-
+import pandas as pd
+import os
 
 load_dotenv()
 
@@ -20,15 +21,35 @@ def main():
     # Pre-requisites
     login(driver, CLOUDMT_EMAIL, CLOUDMT_PASSWORD)
     delete_firefox_bottom_banner(driver)
-    select_product(driver, wait, "APCC")
 
-    # Populate product page
-    enter_description(driver, wait, "test description")
-    set_product_image(driver, "https://www.fetchclubshop.co.uk/cdn/shop/products/kong-puppy-977079_1800x1800.png")
-    set_google_category(driver, wait, "Sporting Goods > Outdoor Recreation > Equestrian > Horse Care > Horse Feed")
-    open_find_and_filter_options(driver)
-    set_primary_colour(driver, "https://www.fetchclubshop.co.uk/cdn/shop/products/kong-puppy-977079_1800x1800.png")
-    block_sim_stock(driver)
+    # Read data from the products.xlsx file
+    products_file = "products.xlsx"
+    if not os.path.exists(products_file):
+        print("products.xlsx file not found.")
+        return
+
+    df = pd.read_excel(products_file)
+
+    # Iterate through each row in the DataFrame
+    for index, row in df.iterrows():
+        item_lookup_code = row["Item Lookup Code"]
+
+        # Select the product based on the item lookup code
+        select_product(driver, wait, item_lookup_code)
+
+        # Other product actions
+        description = row["Ext Description"]
+        image_url = row["Image URL"]
+        google_category = row["Google Category"]
+        primary_colour = row["Product Colour"]
+        block_sim_stock_value = row["Block SIM Stock"]
+
+        enter_description(driver, wait, description)
+        set_product_image(driver, image_url)
+        set_google_category(driver, wait, google_category)
+        open_find_and_filter_options(driver)
+        set_primary_colour(driver, primary_colour, image_url)
+        if block_sim_stock_value: block_sim_stock(driver)
 
 if __name__ == '__main__':
     main()
