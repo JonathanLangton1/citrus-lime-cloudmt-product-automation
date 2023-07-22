@@ -1,4 +1,4 @@
-from product.product_actions import enter_description, set_product_image, set_google_category, open_find_and_filter_options, set_primary_colour, block_sim_stock, activate_product, save_product
+from product.product_actions import enter_description, set_product_image, set_google_category, open_find_and_filter_options, set_primary_colour, block_sim_stock, activate_product, save_product, is_already_active
 from utils.selenium_utils import login, select_product, delete_firefox_bottom_banner, initialize_driver
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.by import By
@@ -60,6 +60,11 @@ def main():
             google_category = row["Google Category"]
             primary_colour = row["Product Colour"]
             block_sim_stock_value = row["Block SIM Stock"]
+
+            # If product is already active, display to user and skip to next
+            if is_already_active(driver, wait):
+                df.at[index, "Error"] = "Product already active on Cloud MT, skipped."
+                continue
 
             # Populate product fields
             enter_description(driver, wait, description)
