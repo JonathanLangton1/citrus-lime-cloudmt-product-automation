@@ -5,6 +5,7 @@ from config.config import get_credentials
 from dotenv import load_dotenv
 import pandas as pd
 import os
+import re
 
 load_dotenv()
 
@@ -73,8 +74,14 @@ def main():
             # Save the DataFrame with the "completed" column updated
             df.to_excel(products_file, index=False)
         except Exception as er:
+
+            # Make error message concise
+            patterns = [r"Message: (.+?)\n", r"Error: (.+?)\n"]
+            matched_messages = [re.search(pattern, er) for pattern in patterns]
+            pretty_error_message = matched_messages[0].group(1) if any(matched_messages) else er
+
             print("*******************************************")
-            print(f"ERROR on row {index+2}", er)
+            print(f"ERROR on row {index+2}", pretty_error_message)
             df.at[index, "Error"] = er
             if os.environ.get("PAUSE_ON_ERROR").lower() == "true": input("Please fix the problem on the screen and press Enter to continue...")
             print("*******************************************")
