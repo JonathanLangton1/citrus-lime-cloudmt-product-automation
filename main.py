@@ -67,7 +67,8 @@ def main():
 
             # Save the DataFrame with the "completed" column updated
             df.to_excel(products_file, index=False)
-        except:
+        except Exception as er:
+            print(er)
             continue
 
 if __name__ == '__main__':
