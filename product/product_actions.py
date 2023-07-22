@@ -3,6 +3,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from utils.image_utils import find_colour_for_image
 from selenium.webdriver.common.by import By
 from selenium.webdriver import Firefox
+from urllib.parse import urlparse
 import requests
 import time
 import math
@@ -20,8 +21,9 @@ def enter_description(driver: Firefox, wait: WebDriverWait, description: str):
     driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[2]/div/div/div[2]/div/div[3]/button').click()
 
 def set_product_image(driver: Firefox, image_url: str):
-    file_path = "D:\coding\github\citrus-lime-cloudmt-product-automation\product_images\\" + image_url.rsplit("/", 1)[-1]
-    response = requests.get(image_url)
+    clipped_url = f"{urlparse(image_url).scheme}://{urlparse(image_url).netloc}{urlparse(image_url).path}"
+    file_path = "D:\coding\github\citrus-lime-cloudmt-product-automation\product_images\\" + clipped_url.rsplit("/", 1)[-1]
+    response = requests.get(clipped_url)
     with open(file_path, "wb") as file:
         file.write(response.content)
 
@@ -39,12 +41,14 @@ def open_find_and_filter_options(driver: Firefox):
 
 def set_primary_colour(driver: Firefox, primary_colour, image_url: str):
 
+    clipped_url = f"{urlparse(image_url).scheme}://{urlparse(image_url).netloc}{urlparse(image_url).path}"
+
     colourIsNotSpecified = (
         isinstance(primary_colour, (float, int)) and math.isnan(primary_colour)
     ) or primary_colour == "DETECT"
 
     if (colourIsNotSpecified):
-        file_path = "product_images\\" + image_url.rsplit("/", 1)[-1]
+        file_path = "product_images\\" + clipped_url.rsplit("/", 1)[-1]
         colour = find_colour_for_image(file_path)
     else:
         colour = primary_colour
