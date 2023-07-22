@@ -1,4 +1,4 @@
-from product.product_actions import enter_description, set_product_image, set_google_category, open_find_and_filter_options, set_primary_colour, block_sim_stock, activate_product, save_product, is_already_active, clean_name
+from product.product_actions import enter_description, set_product_image, set_google_category, open_find_and_filter_options, set_primary_colour, block_sim_stock, activate_product, save_product, is_already_active, clean_name, check_for_save_error
 from utils.selenium_utils import login, select_product, delete_firefox_bottom_banner, initialize_driver
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.by import By
@@ -69,7 +69,7 @@ def main():
                 continue
 
             # Populate product fields
-            # clean_name(driver, wait)
+            clean_name(driver, wait)
             enter_description(driver, wait, description)
             set_product_image(driver, image_url)
             set_google_category(driver, wait, google_category)
@@ -78,6 +78,7 @@ def main():
             if block_sim_stock_value: block_sim_stock(driver)
             activate_product(driver)
             save_product(driver)
+            check_for_save_error(driver)
 
             # Mark the row as completed
             df.at[index, "Completed"] = "TRUE"
