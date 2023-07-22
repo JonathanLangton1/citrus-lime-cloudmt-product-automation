@@ -63,7 +63,9 @@ def main():
 
             # If product is already active, display to user and skip to next
             if is_already_active(driver, wait):
+                print("Product already active on Cloud MT, skipped.")
                 df.at[index, "Error"] = "Product already active on Cloud MT, skipped."
+                df.to_excel(products_file, index=False)
                 continue
 
             # Populate product fields
