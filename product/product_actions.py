@@ -14,6 +14,11 @@ def is_already_active(driver: Firefox, wait: WebDriverWait):
     isCheckboxSelected = "Not active" not in driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[1]/div[1]/div[2]/div[2]/span').text
     return isCheckboxSelected
 
+def clean_name(driver: Firefox, wait: WebDriverWait):
+    wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div[4]/div[2]/div[1]/div[1]/div[4]/div[2]/input")))
+    product_name = driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[1]/div[1]/div[4]/div[2]/input').get_attribute("value")
+    product_name.replace("&", "and")    
+
 def enter_description(driver: Firefox, wait: WebDriverWait, description: str):
     wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div[4]/div[2]/div[1]/div[1]/div[7]/div[3]/a")))
     driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[1]/div[1]/div[7]/div[3]/a').click()
