@@ -3,6 +3,8 @@ By default, if you create a product on Cloud POS, the product will sync through 
 
 This Python script will take a .xlsx input (see [products_example.xlsx](products_example.xlsx)) and activate the products on Cloud MT for you.
 
+> [View a demo video here](https://youtu.be/Jc8kCqw5HCk)
+
 ## Workflow:
 Load products.xlsx file, and for each product, do the below:
 
