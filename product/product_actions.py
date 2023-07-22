@@ -61,3 +61,9 @@ def set_primary_colour(driver: Firefox, primary_colour, image_url: str):
 
 def block_sim_stock(driver: Firefox):
     driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[1]/div[1]/div[16]/div[2]/div[9]/div[2]/input').click()
+
+def activate_product(driver: Firefox):
+    driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[1]/div[1]/div[2]/div[2]/input').click()
+
+def save_product(driver: Firefox):
+    driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[1]/div[3]/button[2]').click()
