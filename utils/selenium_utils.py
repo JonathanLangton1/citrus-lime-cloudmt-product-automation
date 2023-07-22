@@ -5,9 +5,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver import Firefox
 from selenium import webdriver
 import time
+import os
 
 def initialize_driver():
     fireFoxOptions = webdriver.FirefoxOptions()
+    if os.environ.get("HEADLESS").lower() == "true": fireFoxOptions.add_argument("--headless")
     driver = webdriver.Firefox(options=fireFoxOptions)
     wait = WebDriverWait(driver, 20)
     driver.maximize_window()
