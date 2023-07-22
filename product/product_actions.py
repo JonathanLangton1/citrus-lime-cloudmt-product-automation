@@ -47,8 +47,8 @@ def set_primary_colour(driver: Firefox, primary_colour, image_url: str):
         isinstance(primary_colour, (float, int)) and math.isnan(primary_colour)
     ) or primary_colour == "DETECT"
 
+    file_path = "product_images\\" + clipped_url.rsplit("/", 1)[-1]
     if (colourIsNotSpecified):
-        file_path = "product_images\\" + clipped_url.rsplit("/", 1)[-1]
         colour = find_colour_for_image(file_path)
     else:
         colour = primary_colour
