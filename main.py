@@ -1,4 +1,4 @@
-from product.product_actions import enter_description, set_product_image, set_google_category, open_find_and_filter_options, set_primary_colour, block_sim_stock
+from product.product_actions import enter_description, set_product_image, set_google_category, open_find_and_filter_options, set_primary_colour, block_sim_stock, activate_product, save_product
 from utils.selenium_utils import login, select_product, delete_firefox_bottom_banner, initialize_driver
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.by import By
@@ -68,6 +68,8 @@ def main():
             open_find_and_filter_options(driver)
             set_primary_colour(driver, primary_colour, image_url)
             if block_sim_stock_value: block_sim_stock(driver)
+            activate_product(driver)
+            save_product(driver)
 
             # Mark the row as completed
             df.at[index, "Completed"] = "TRUE"
