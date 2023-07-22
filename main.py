@@ -37,36 +37,38 @@ def main():
 
     # Iterate through each row in products.xlsx
     for index, row in df.iterrows():
+        try:
+            # Check if the row is already completed; if yes, skip it
+            if pd.notna(row["Completed"]) and row["Completed"]:
+                continue
 
-        # Check if the row is already completed; if yes, skip it
-        if pd.notna(row["Completed"]) and row["Completed"]:
+            item_lookup_code = row["Item Lookup Code"]
+
+            # Select the product based on the item lookup code
+            select_product(driver, wait, item_lookup_code)
+
+            # Get Excel row data
+            description = row["Ext Description"]
+            image_url = row["Image URL"]
+            google_category = row["Google Category"]
+            primary_colour = row["Product Colour"]
+            block_sim_stock_value = row["Block SIM Stock"]
+
+            # Populate product fields
+            enter_description(driver, wait, description)
+            set_product_image(driver, image_url)
+            set_google_category(driver, wait, google_category)
+            open_find_and_filter_options(driver)
+            set_primary_colour(driver, primary_colour, image_url)
+            if block_sim_stock_value: block_sim_stock(driver)
+
+            # Mark the row as completed
+            df.at[index, "Completed"] = "TRUE"
+
+            # Save the DataFrame with the "completed" column updated
+            df.to_excel(products_file, index=False)
+        except:
             continue
-
-        item_lookup_code = row["Item Lookup Code"]
-
-        # Select the product based on the item lookup code
-        select_product(driver, wait, item_lookup_code)
-
-        # Get Excel row data
-        description = row["Ext Description"]
-        image_url = row["Image URL"]
-        google_category = row["Google Category"]
-        primary_colour = row["Product Colour"]
-        block_sim_stock_value = row["Block SIM Stock"]
-
-        # Populate product fields
-        enter_description(driver, wait, description)
-        set_product_image(driver, image_url)
-        set_google_category(driver, wait, google_category)
-        open_find_and_filter_options(driver)
-        set_primary_colour(driver, primary_colour, image_url)
-        if block_sim_stock_value: block_sim_stock(driver)
-
-        # Mark the row as completed
-        df.at[index, "Completed"] = "TRUE"
-
-        # Save the DataFrame with the "completed" column updated
-        df.to_excel(products_file, index=False)
 
 if __name__ == '__main__':
     main()
