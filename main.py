@@ -48,7 +48,7 @@ def main():
 
             item_lookup_code = row["Item Lookup Code"]
 
-            print(f"Processing row #{index+2}/{len(df+1)} ({item_lookup_code})")
+            print(f"Processing row #{index+2}/{len(df)+1} ({item_lookup_code})")
 
             # Select the product based on the item lookup code
             select_product(driver, wait, item_lookup_code)
@@ -77,12 +77,13 @@ def main():
 
             # Make error message concise
             patterns = [r"Message: (.+?)\n", r"Error: (.+?)\n"]
-            matched_messages = [re.search(pattern, er) for pattern in patterns]
+            matched_messages = [re.search(pattern, str(er)) for pattern in patterns]
             pretty_error_message = matched_messages[0].group(1) if any(matched_messages) else er
 
             print("*******************************************")
             print(f"ERROR on row {index+2}", pretty_error_message)
-            df.at[index, "Error"] = er
+            df.at[index, "Error"] = str(pretty_error_message)
+            df.to_excel(products_file, index=False)
             if os.environ.get("PAUSE_ON_ERROR").lower() == "true": input("Please fix the problem on the screen and press Enter to continue...")
             print("*******************************************")
             continue
