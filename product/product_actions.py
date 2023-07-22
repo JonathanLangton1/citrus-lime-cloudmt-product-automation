@@ -17,7 +17,9 @@ def is_already_active(driver: Firefox, wait: WebDriverWait):
 def clean_name(driver: Firefox, wait: WebDriverWait):
     wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div[4]/div[2]/div[1]/div[1]/div[4]/div[2]/input")))
     product_name = driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[1]/div[1]/div[4]/div[2]/input').get_attribute("value")
-    product_name.replace("&", "and")    
+    clean_product_name = product_name.replace("&", "and")
+    driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[1]/div[1]/div[4]/div[2]/input').clear()
+    driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[1]/div[1]/div[4]/div[2]/input').send_keys(clean_product_name)
 
 def enter_description(driver: Firefox, wait: WebDriverWait, description: str):
     wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div[4]/div[2]/div[1]/div[1]/div[7]/div[3]/a")))
@@ -38,6 +40,7 @@ def set_product_image(driver: Firefox, image_url: str):
         file.write(response.content)
 
     driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[1]/div[1]/div[8]/div[2]/div/div[1]/div[2]/input').send_keys(file_path)
+    check_for_popup(driver)
 
 def set_google_category(driver: Firefox, wait: WebDriverWait, category: str):
     time.sleep(2)
@@ -77,3 +80,13 @@ def activate_product(driver: Firefox):
 
 def save_product(driver: Firefox):
     driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[1]/div[3]/button[2]').click()
+
+def check_for_save_error(driver: Firefox):
+    check_for_popup(driver)
+    
+def check_for_popup(driver: Firefox):
+    time.sleep(1)
+    if driver.find_elements(By.CSS_SELECTOR, ".uk-modal.uk-open"):
+        modal_message = driver.find_element(By.CSS_SELECTOR, ".uk-modal-body").text
+        driver.execute_script("arguments[0].remove();", driver.find_element(By.CSS_SELECTOR, ".uk-modal.uk-open"))
+        raise AssertionError("Error:", modal_message)
