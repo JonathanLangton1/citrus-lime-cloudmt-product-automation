@@ -19,7 +19,7 @@ def login(driver: Firefox, CLOUDMT_EMAIL: str, CLOUDMT_PASSWORD: str):
     driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div/div/div[4]/button').click()
 
 def select_product(driver: Firefox, wait: WebDriverWait, product_code: str):
-    wait.until(EC.element_to_be_clickable(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div[4]/div[2]/div[1]/div[2]/div[1]/div/div[1]/input"))))
+    wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div[4]/div[2]/div[1]/div[2]/div[1]/div/div[1]/input")))
     skip_to_another_item_input = driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[1]/div[2]/div[1]/div/div[1]/input')
 
     # If there is already text in input, clear it
