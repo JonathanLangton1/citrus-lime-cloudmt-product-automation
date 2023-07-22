@@ -1,7 +1,7 @@
 # Citrus Lime Cloud MT Product Automation
 By default, if you create a product on Cloud POS, the product will sync through to Cloud MT, but requires additional information to activate the product on the website. There is currently no bulk CSV functionality on Cloud MT.
 
-This Python script will take a CSV input (see example CSV) and activate the products on Cloud MT for you.
+This Python script will take a .xlsx input (see [products_example.xlsx](products_example.xlsx)) and activate the products on Cloud MT for you.
 
 ## Workflow:
 Load CSV file, and for each product, do the below:
