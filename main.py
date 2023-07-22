@@ -30,9 +30,12 @@ def main():
 
     df = pd.read_excel(products_file)
 
-    # Check if "completed" column exists; if not, create it and set values to blank
+    # Check if "completed" or "Error" column exists; if not, create it and set values to blank
     if "Completed" not in df.columns:
         df["Completed"] = ""
+        df.to_excel(products_file, index=False)
+    if "Error" not in df.columns:
+        df["Error"] = ""
         df.to_excel(products_file, index=False)
 
     # Iterate through each row in products.xlsx
@@ -43,6 +46,8 @@ def main():
                 continue
 
             item_lookup_code = row["Item Lookup Code"]
+
+            print(f"Processing row #{index+2}/{len(df+1)} ({item_lookup_code})")
 
             # Select the product based on the item lookup code
             select_product(driver, wait, item_lookup_code)
@@ -69,6 +74,8 @@ def main():
             df.to_excel(products_file, index=False)
         except Exception as er:
             print("*******************************************")
+            print(f"ERROR on row {index+2}", er)
+            df.at[index, "Error"] = er
             if os.environ.get("PAUSE_ON_ERROR").lower() == "true": input("Please fix the problem on the screen and press Enter to continue...")
             print("*******************************************")
             continue
