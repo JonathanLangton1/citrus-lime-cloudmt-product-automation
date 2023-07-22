@@ -69,8 +69,7 @@ def main():
             df.to_excel(products_file, index=False)
         except Exception as er:
             print("*******************************************")
-            print("ERROR:", er)
-            input("Please fix the problem on the screen and press Enter to continue...")
+            if os.environ.get("PAUSE_ON_ERROR").lower() == "true": input("Please fix the problem on the screen and press Enter to continue...")
             print("*******************************************")
             continue
 
