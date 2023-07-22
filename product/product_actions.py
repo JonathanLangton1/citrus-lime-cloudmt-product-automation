@@ -18,7 +18,7 @@ def is_already_active(driver: Firefox, wait: WebDriverWait):
 def clean_name(driver: Firefox, wait: WebDriverWait):
     wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div[4]/div[2]/div[1]/div[1]/div[4]/div[2]/input")))
     product_name = driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[1]/div[1]/div[4]/div[2]/input').get_attribute("value")
-    clean_product_name = product_name.replace("&", "and")
+    clean_product_name = product_name.replace("&", "and").replace("(", "-").replace(")", "")
     driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[1]/div[1]/div[4]/div[2]/input').clear()
     driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[1]/div[1]/div[4]/div[2]/input').send_keys(clean_product_name)
 
