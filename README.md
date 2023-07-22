@@ -1,10 +1,10 @@
 # Citrus Lime Cloud MT Product Automation
-By default, if you create a product on Cloud POS, the product will sync through to Cloud MT, but requires additional information to activate the product on the website. There is currently no bulk CSV functionality on Cloud MT.
+By default, if you create a product on Cloud POS, the product will sync through to Cloud MT, but requires additional information to activate the product on the website. There is currently no bulk import functionality on Cloud MT.
 
 This Python script will take a .xlsx input (see [products_example.xlsx](products_example.xlsx)) and activate the products on Cloud MT for you.
 
 ## Workflow:
-Load CSV file, and for each product, do the below:
+Load products.xlsx file, and for each product, do the below:
 
 1. Enter description
 2. Insert product image
@@ -12,7 +12,7 @@ Load CSV file, and for each product, do the below:
 
 	**Find & filter options**
 
-4. Set primary colour (If not specified in CSV file, it will use computer vision to detect the product colour)
+4. Set primary colour (If not specified in products.xlsx file, it will use computer vision to detect the product colour)
 7. Block or unblock SIM stock ([see what this is](https://howto.citruslime.com/94790-cloud-mt/cloud-mt-activating-products-online#:~:text=Block%20SIM%20Stock,the%20supply%20chain.))
 
 ## Quick Start
