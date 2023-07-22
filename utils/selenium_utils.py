@@ -29,9 +29,9 @@ def select_product(driver: Firefox, wait: WebDriverWait, product_code: str):
     skip_to_another_item_input.send_keys(product_code, Keys.ENTER)
     time.sleep(1)
     # If product code invalid, a popup will occur. Close this and throw an error to continue to next item
-    if driver.find_element(By.CSS_SELECTOR(".uk-modal.uk-open")):
-        modal_message = driver.find_element(By.CSS_SELECTOR(".uk-modal.uk-open")).text
-        driver.execute_script("arguments[0].remove();", driver.find_element(By.CSS_SELECTOR(".uk-modal.uk-open")))
+    if driver.find_elements(By.CSS_SELECTOR, ".uk-modal.uk-open"):
+        modal_message = driver.find_element(By.CSS_SELECTOR, ".uk-modal.uk-open").text
+        driver.execute_script("arguments[0].remove();", driver.find_element(By.CSS_SELECTOR, ".uk-modal.uk-open"))
         raise AssertionError("Error:", modal_message)
     time.sleep(2)
 
