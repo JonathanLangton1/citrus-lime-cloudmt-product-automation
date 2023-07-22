@@ -1,5 +1,6 @@
 from product.product_actions import enter_description, set_product_image, set_google_category, open_find_and_filter_options, set_primary_colour, block_sim_stock
 from utils.selenium_utils import login, select_product, delete_firefox_bottom_banner, initialize_driver
+from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.by import By
 from config.config import get_credentials
 from dotenv import load_dotenv
@@ -73,6 +74,10 @@ def main():
 
             # Save the DataFrame with the "completed" column updated
             df.to_excel(products_file, index=False)
+        except WebDriverException:
+            print("Browser was manually closed.")
+            return
+
         except Exception as er:
 
             # Make error message concise
