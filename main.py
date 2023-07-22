@@ -86,8 +86,8 @@ def main():
 
             # Save the DataFrame with the "completed" column updated
             df.to_excel(products_file, index=False)
-        except WebDriverException:
-            print("Browser was manually closed.")
+        except WebDriverException as er:
+            print("Browser was manually closed. Or something else went wrong:", er)
             return
 
         except Exception as er:
