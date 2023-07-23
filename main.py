@@ -65,7 +65,6 @@ def main():
             if is_already_active(driver, wait):
                 print("Product already active on Cloud MT, skipped.")
                 df.at[index, "Error"] = "Product already active on Cloud MT, skipped."
-                df.at[index, "Completed"] = "TRUE"
                 df.to_excel(products_file, index=False)
                 continue
 

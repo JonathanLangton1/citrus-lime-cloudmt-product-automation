@@ -11,6 +11,8 @@ import os
 
 def is_already_active(driver: Firefox, wait: WebDriverWait):
     time.sleep(1)
+    if driver.find_elements(By.CSS_SELECTOR, ".uk-modal.uk-open"):
+        driver.execute_script("arguments[0].remove();", driver.find_element(By.CSS_SELECTOR, ".uk-modal.uk-open"))
     wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/div[4]/div[2]/div[1]/div[1]/div[2]/div[2]/span")))
     isCheckboxSelected = "Not active" not in driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[1]/div[1]/div[2]/div[2]/span').text
     return isCheckboxSelected
