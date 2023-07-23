@@ -11,8 +11,7 @@ import os
 
 def is_already_active(driver: Firefox, wait: WebDriverWait):
     time.sleep(1)
-    if driver.find_elements(By.CSS_SELECTOR, ".page-loading-visible"):
-        driver.execute_script("arguments[0].remove();", driver.find_element(By.CSS_SELECTOR, ".page-loading-visible"))
+    wait.until(EC.invisibility_of_element_located((By.CSS_SELECTOR, ".page-loading-visible")))
     wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/div[4]/div[2]/div[1]/div[1]/div[2]/div[2]/span")))
     isCheckboxSelected = "Not active" not in driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[1]/div[1]/div[2]/div[2]/span').text
     return isCheckboxSelected
@@ -37,7 +36,9 @@ def enter_description(driver: Firefox, wait: WebDriverWait, description: str):
 
 def set_product_image(driver: Firefox, image_url: str):
     clipped_url = f"{urlparse(image_url).scheme}://{urlparse(image_url).netloc}{urlparse(image_url).path}"
-    file_path = "D:\coding\github\citrus-lime-cloudmt-product-automation\product_images\\" + clipped_url.rsplit("/", 1)[-1]
+    filename = clipped_url.rsplit("/", 1)[-1]
+    current_dir = os.getcwd()
+    file_path = os.path.join(current_dir, "product_images", filename)
     response = requests.get(clipped_url)
     with open(file_path, "wb") as file:
         file.write(response.content)
