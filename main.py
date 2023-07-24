@@ -80,8 +80,9 @@ def main():
             save_product(driver)
             check_for_save_error(driver)
 
-            # Mark the row as completed
+            # Mark the row as completed and remove any previous errors
             df.at[index, "Completed"] = "TRUE"
+            df.at[index, "Error"] = ""
 
             # Save the DataFrame with the "completed" column updated
             df.to_excel(products_file, index=False)
