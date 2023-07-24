@@ -1,4 +1,4 @@
-from product.product_actions import enter_description, set_product_image, set_google_category, open_find_and_filter_options, set_primary_colour, block_sim_stock, activate_product, save_product, is_already_active, clean_name, check_for_save_error
+from product.product_actions import enter_description, set_product_image, set_google_category, open_find_and_filter_options, set_primary_colour, block_sim_stock, activate_product, save_product, is_already_active, clean_name, check_for_save_error, set_item_group, close_find_and_filter_options
 from utils.selenium_utils import login, select_product, delete_firefox_bottom_banner, initialize_driver
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.by import By
@@ -59,6 +59,7 @@ def main():
             image_url = row["Image URL"]
             google_category = row["Google Category"]
             primary_colour = row["Product Colour"]
+            item_group = row["Item Group"]
             block_sim_stock_value = row["Block SIM Stock"]
 
             # If product is already active, display to user and skip to next
@@ -73,8 +74,13 @@ def main():
             enter_description(driver, wait, description)
             set_product_image(driver, image_url)
             set_google_category(driver, wait, google_category)
+            
+            # Find and filter modal
             open_find_and_filter_options(driver)
+            set_item_group(driver, item_group)
             set_primary_colour(driver, primary_colour, image_url)
+            close_find_and_filter_options(driver)
+
             if block_sim_stock_value: block_sim_stock(driver)
             activate_product(driver)
             save_product(driver)
