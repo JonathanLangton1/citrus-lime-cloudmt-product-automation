@@ -69,8 +69,8 @@ def set_primary_colour(driver: Firefox, primary_colour, image_url: str):
         colour = find_colour_for_image(file_path)
     else:
         colour = primary_colour
-    driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[1]/div[1]/div[13]/div/div[10]/div/div/div/div/div/div[2]/ul[2]/li[1]/div[5]/div[2]').click()
-    driver.find_element(By.XPATH, f'/html/body/div[1]/div[4]/div[2]/div[1]/div[1]/div[13]/div/div[10]/div/div/div/div/div/div[2]/ul[2]/li[1]/div[5]/div[2]/div/div/div[@data-value="{colour}"]').click()
+    driver.find_element(By.XPATH, '/html/body/div/div[4]/div[2]/div[1]/div[1]/div[13]/div/div[10]/div/div/div/div/div/div[2]/ul[2]/li[1]/div[7]/div[3]/div[2]').click()
+    driver.find_element(By.XPATH, f'/html/body/div[1]/div[4]/div[2]/div[1]/div[1]/div[13]/div/div[10]/div/div/div/div/div/div[2]/ul[2]/li[1]/div[7]/div[3]/div[2]/div/div/div[@data-value="{colour}"]').click()
 
     if (os.path.isfile(file_path)):
         os.remove(file_path)
@@ -78,7 +78,7 @@ def set_primary_colour(driver: Firefox, primary_colour, image_url: str):
 def set_item_group(driver: Firefox, item_group: str):
     if not item_group:
         return
-    driver.find_element(By.XPATH, '/html/body/div/div[4]/div[2]/div[1]/div[1]/div[13]/div/div[10]/div/div/div/div/div/div[2]/ul[2]/li[1]/div[7]/div[3]/div[2]').click()
+    driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[1]/div[1]/div[13]/div/div[10]/div/div/div/div/div/div[2]/ul[2]/li[1]/div[5]/div[2]').click()
     driver.find_element(By.XPATH, f'/html/body/div[1]/div[4]/div[2]/div[1]/div[1]/div[13]/div/div[10]/div/div/div/div/div/div[2]/ul[2]/li[1]/div[5]/div[2]/div/div/div[contains(string(), "{item_group}")]').click()
 
 def close_find_and_filter_options(driver: Firefox):
